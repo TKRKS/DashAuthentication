@@ -1,0 +1,17 @@
+all:
+	make generateKey mpdParser
+
+hashFile: 
+	g++ -g -O0 -DDEBUG -Wall -Wno-unused -std=c++11 -o hashFile HashFile.cpp -lcryptopp -lpthread -I/usr/include
+
+signFile: 
+	g++ -g -O0 -DDEBUG -Wall -Wno-unused -std=c++11 -o signFile SignFile.cpp -lcryptopp -lpthread -I/usr/include
+
+generateKey: 
+	g++ -g -O0 -DDEBUG -Wall -Wno-unused -std=c++11 -o generateKey GenerateKey.cpp -lcryptopp -lpthread -I/usr/include
+
+mpdParser: 
+	g++ -g -O0 -DDEBUG -Wall -Wno-unused -std=c++11 -o mpdParser MpdParser.cpp -lcryptopp -lpthread
+
+clean:
+	rm -f generateKey mpdParser

@@ -1,0 +1,19 @@
+#include "Crypto.h"
+
+int main(int argc, const char* argv[]) {
+	SHA hash;
+	byte buffer[2 * SHA::DIGESTSIZE]; // Output size of the buffer
+
+	cout << "Test1" << endl;
+	 
+	FileSource f(argv[1], true,
+		     new HashFilter(hash,
+		     new HexEncoder(new ArraySink(buffer,2 * SHA::DIGESTSIZE))));
+	
+	cout << "Test2" << endl;
+
+	cout << string((const char*)buffer,2 * SHA::DIGESTSIZE)  << endl;
+}
+
+
+
