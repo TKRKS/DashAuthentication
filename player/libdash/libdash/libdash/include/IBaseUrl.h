@@ -39,7 +39,7 @@ namespace dash
                 virtual const std::string& GetUrl               ()  const = 0;
 
                 /**
-                 *  Returns the reference to a string that specifies a relationship between Base URLs such that \c <b>BaseURL</b> elements with the same 
+                 *  Returns the reference to a string that specifies a relationship between Base URLs such that \c <b>BaseURL</b> elements with the same
                  *  \c \@serviceLocation value are likely to have their URLs resolve to services at a common network location, for example a common Content Delivery Network
                  *  @return     a reference to a string
                  */
@@ -47,7 +47,7 @@ namespace dash
 
                 /**
                  *  Returns the reference to a string that represents a byte range. \n
-                 *  If present specifies HTTP partial GET requests may alternatively be issued by adding the byte range into a 
+                 *  If present specifies HTTP partial GET requests may alternatively be issued by adding the byte range into a
                  *  regular HTTP-URL based on the value of this attribute and the construction rules in Annex E.2. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.\n
                  *  If not present, HTTP partial GET requests may not be converted into regular GET requests. \n
                  *  \b NOTE:    Such alternative requests are expected to not be used unless the DASH application requires this. For more details refer to Annex E.
@@ -56,12 +56,20 @@ namespace dash
                 virtual const std::string& GetByteRange         ()  const = 0;
 
                  /**
-                 *  Returns a pointer to a dash::mpd::ISegment object which represents a media segment that can be downloaded. Should be used for single base urls inside 
+                 *  Returns a pointer to a dash::mpd::ISegment object which represents a media segment that can be downloaded. Should be used for single base urls inside
                  *  a representation.
                  *  @param      baseurls    a vector of pointers to dash::mpd::IBaseUrl objects that represent the path to the media segment
                  *  @return     a pointer to a dash::mpd::ISegment object
                  */
                 virtual ISegment*           ToMediaSegment      (const std::vector<IBaseUrl *>& baseurls) const = 0;
+
+                /**
+                 *  Changes the base URL to a given string
+                 *  @param url The url to change it to
+                 *  TREY
+                 */
+                virtual void                 SetUrl             (const std::string& url) = 0;
+
         };
     }
 }

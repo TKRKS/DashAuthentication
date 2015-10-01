@@ -28,7 +28,7 @@ Segment::~Segment   ()
 {
 }
 
-bool                Segment::Init               (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, HTTPTransactionType type)
+bool                Segment::Init               (const std::vector<IBaseUrl *>& baseurls, const std::string &uri, const std::string &range, HTTPTransactionType type, const std::string &hashValue)
 {
     std::string host        = "";
     size_t      port        = 80;
@@ -58,7 +58,7 @@ bool                Segment::Init               (const std::vector<IBaseUrl *>& 
         }
 
         this->type = type;
-
+        this->hashValue = hashValue;
         return true;
     }
 
@@ -135,4 +135,13 @@ HTTPTransactionType Segment::GetType            ()
 void                Segment::SetType            (HTTPTransactionType type)
 {
     this->type = type;
+}
+//TREY
+std::string&        Segment::GetHash            ()
+{
+    return this->hashValue;
+}
+void                Segment::SetHash            (std::string hashValue)
+{
+    this->hashValue = hashValue;
 }

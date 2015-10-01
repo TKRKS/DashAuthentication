@@ -1,12 +1,12 @@
 /**
  *  @class      dash::mpd::IMPD
- *  @brief      This interface is needed for accessing the attributes and elements of the <tt><b>MPD</b></tt> element 
+ *  @brief      This interface is needed for accessing the attributes and elements of the <tt><b>MPD</b></tt> element
  *              as specified in <em>ISO/IEC 23009-1, Part 1, 2012</em>, section 5.3.1.2, table 3
  *  @details    A Media Presentation as described in the <tt><b>MPD</b></tt> consists of (all sections refer to <em>ISO/IEC 23009-1, Part 1, 2012</em>)
  *              <ul>
  *                  <li>A sequence of one or more Periods as described in section 5.3.2.
  *                  <li>Each Period contains one or more Adaptation Sets as described in 5.3.3.
- *                      In case an Adaptation Set contains multiple media content components, then each media content component is described individually 
+ *                      In case an Adaptation Set contains multiple media content components, then each media content component is described individually
  *                      as defined in 5.3.4.
  *                  <li>Each Adaptation Set contains one or more Representations as described in 5.3.5.
  *                  <li>A Representation may contain one or more Sub-Representations as described in 5.3.6.
@@ -58,7 +58,7 @@ namespace dash
                 virtual const std::vector<IProgramInformation *>&   GetProgramInformations          ()  const = 0;
 
                 /**
-                 *  Returns a reference to a vector of pointers to dash::mpd::IBaseUrl objects that specify Base URLs that can be used for reference resolution 
+                 *  Returns a reference to a vector of pointers to dash::mpd::IBaseUrl objects that specify Base URLs that can be used for reference resolution
                  *  and alternative URL selection. \n
                  *  For more details refer to the description in section 5.6. of <em>ISO/IEC 23009-1, Part 1, 2012</em>.
                  *  @return     a reference to a vector of pointers to dash::mpd::IBaseUrl objects
@@ -86,7 +86,14 @@ namespace dash
                 virtual const std::vector<IMetrics *>&              GetMetrics                      ()  const = 0;
 
                 /**
-                 *  Returns a reference to a string that specifies an identifier for the Media Presentation. It is recommended to use an identifier that is unique within 
+                 *  Returns a reference to a string that is the signature in a formate readable by libgcrypt.
+                 *  @return     The string representing the signature.
+                 *  TREY
+                 */
+                virtual const std::string&                          GetSignature                    ()  const = 0;
+
+                /**
+                 *  Returns a reference to a string that specifies an identifier for the Media Presentation. It is recommended to use an identifier that is unique within
                  *  the scope in which the Media Presentation is published. \n
                  *  If not specified, no MPD-internal identifier is provided. However, for example the URL to the MPD may be used as an identifier for the Media Presentation.
                  *  @return     a reference to a string
@@ -95,8 +102,8 @@ namespace dash
 
                 /**
                  *  Returns a reference to a vector of strings that specifies a list of Media Presentation profiles as described in section 8 of <em>ISO/IEC 23009-1, Part 1, 2012</em>.\n
-                 *  The contents of this attribute shall conform to either the \c pro-simple or \c pro-fancy productions of RFC6381, Section 4.5, without the enclosing \c DQUOTE characters, 
-                 *  i.e. including only the \c unencodedv or \c encodedv elements respectively. 
+                 *  The contents of this attribute shall conform to either the \c pro-simple or \c pro-fancy productions of RFC6381, Section 4.5, without the enclosing \c DQUOTE characters,
+                 *  i.e. including only the \c unencodedv or \c encodedv elements respectively.
                  *  As profile identifier the URI defined for the conforming Media Presentation profiles as described in section 8 shall be used.
                  *  @return     a reference to a vector of pointers to dash::mpd::IProgramInformation objects
                  */
@@ -146,7 +153,7 @@ namespace dash
                 virtual const std::string&                          GetMinimumUpdatePeriod          ()  const = 0;
 
                 /**
-                 *  Returns a reference to a string that specifies a common duration used in the definition of the Representation data rate 
+                 *  Returns a reference to a string that specifies a common duration used in the definition of the Representation data rate
                  *  (see \c \@bandwidth attribute in section 5.3.5.2 of <em>ISO/IEC 23009-1, Part 1, 2012</em>).
                  *  @return     a reference to a string
                  */
@@ -154,7 +161,7 @@ namespace dash
 
 
                 /**
-                 *  Returns a reference to a string that specifies the duration of the time shifting buffer that is guaranteed to be available for a Media Presentation 
+                 *  Returns a reference to a string that specifies the duration of the time shifting buffer that is guaranteed to be available for a Media Presentation
                  *  with type \c \"dynamic\". When not present, the value is infinite. This value of the attribute is undefined if the type attribute is equal to \c \"static\".
                  *  @return     a reference to a string
                  */
@@ -173,14 +180,14 @@ namespace dash
                 virtual const std::string&                          GetSuggestedPresentationDelay   ()  const = 0;
 
                 /**
-                 *  Returns a reference to a string that specifies the maximum duration of any Segment in any Representation in the Media Presentation, 
-                 *  i.e. documented in this MPD and any future update of the MPD. If not present, then the maximum Segment duration shall be the maximum duration of any Segment documented in this MPD. 
+                 *  Returns a reference to a string that specifies the maximum duration of any Segment in any Representation in the Media Presentation,
+                 *  i.e. documented in this MPD and any future update of the MPD. If not present, then the maximum Segment duration shall be the maximum duration of any Segment documented in this MPD.
                  *  @return     a reference to a string
                  */
                 virtual const std::string&                          GetMaxSegmentDuration           ()  const = 0;
 
                 /**
-                 *  Returns a reference to a string that specifies the maximum duration of any Media Subsegment in any Representation in the Media Presentation. 
+                 *  Returns a reference to a string that specifies the maximum duration of any Media Subsegment in any Representation in the Media Presentation.
                  *  If not present, the same value as for the maximum Segment duration is implied.
                  *  @return     a reference to a string
                  */

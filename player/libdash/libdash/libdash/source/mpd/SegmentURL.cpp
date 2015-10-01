@@ -57,11 +57,20 @@ void                SegmentURL::SetIndexRange   (const std::string& indexRange)
 {
     this->indexRange = indexRange;
 }
+//TREY
+const std::string&  SegmentURL::GetHash         ()  const
+{
+    return this->hashValue;
+}
+void                SegmentURL::SetHash         (const std::string& hashValue)
+{
+    this->hashValue = hashValue;
+}
 ISegment*           SegmentURL::ToMediaSegment  (const std::vector<IBaseUrl *>& baseurls) const
 {
     Segment *seg = new Segment();
-    
-    if(seg->Init(baseurls, this->mediaURI, this->mediaRange, dash::metrics::MediaSegment))
+
+    if(seg->Init(baseurls, this->mediaURI, this->mediaRange, dash::metrics::MediaSegment, this->hashValue))
         return seg;
 
     delete(seg);
@@ -71,8 +80,8 @@ ISegment*           SegmentURL::ToMediaSegment  (const std::vector<IBaseUrl *>& 
 ISegment*           SegmentURL::ToIndexSegment  (const std::vector<IBaseUrl *>& baseurls) const
 {
     Segment *seg = new Segment();
-    
-    if(seg->Init(baseurls, this->indexURI, this->indexRange, dash::metrics::IndexSegment))
+
+    if(seg->Init(baseurls, this->indexURI, this->indexRange, dash::metrics::IndexSegment, this->hashValue))
         return seg;
 
     delete(seg);

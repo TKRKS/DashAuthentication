@@ -9,6 +9,8 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
+//TREY CHANGED THIS SOME!!!!
+
 #include "DOMParser.h"
 
 using namespace dash::xml;
@@ -38,8 +40,10 @@ bool    DOMParser::Parse                    ()
     if(this->reader == NULL)
         return false;
 
-    if(xmlTextReaderRead(this->reader)) 
+    if(xmlTextReaderRead(this->reader))
         this->root = this->ProcessNode();
+    //TREY
+    //this->Print();
 
     if(this->root == NULL)
         return false;
@@ -63,7 +67,6 @@ Node*   DOMParser::ProcessNode              ()
         Node *node = new Node();
         node->SetType(type);
         node->SetMPDPath(Path::GetDirectoryPath(url));
-
         if(xmlTextReaderConstName(this->reader) == NULL)
         {
             delete node;
@@ -97,7 +100,6 @@ Node*   DOMParser::ProcessNode              ()
 
             ret = xmlTextReaderRead(this->reader);
         }
-
         return node;
     } else if (type == Text)
     {
@@ -141,7 +143,7 @@ void    DOMParser::Print                    (Node *node, int offset)
     }
 
     offset++;
-
+    std::cout << ss.str() << std::endl;
     for(unsigned int i = 0; i < node->GetSubNodes().size(); i++)
     {
         this->Print(node->GetSubNodes().at(i), offset);

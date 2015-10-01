@@ -32,16 +32,16 @@ namespace dash
                 virtual ~IURLType(){}
 
                 /**
-                 *  Returns a reference to a string that pecifies the source URL part and shall be formated either as an \c <absolute-URI> according to RFC 3986, Clause 4.3, 
+                 *  Returns a reference to a string that pecifies the source URL part and shall be formated either as an \c <absolute-URI> according to RFC 3986, Clause 4.3,
                  *  with a fixed scheme of \"http\" or \"https\" or as a \c <relative-ref> according to RFC 3986, Clause 4.2.\n
-                 * If not present, then any <tt><b>BaseURL</b></tt> element is mapped to the \c \@sourceURL attribute and the range attribute shall be present. 
+                 * If not present, then any <tt><b>BaseURL</b></tt> element is mapped to the \c \@sourceURL attribute and the range attribute shall be present.
                  *  @return     a reference to a string
                  */
                 virtual const std::string&  GetSourceURL    ()  const = 0;
 
                 /**
                  *  Returns a reference to a string that specifies the byte range restricting the above HTTP-URL.\n
-                 *  The byte range shall be expressed and formatted as a byte-range-spec as defined in RFC 2616, Clause 14.35.1. It is restricted to a single expression identifying a 
+                 *  The byte range shall be expressed and formatted as a byte-range-spec as defined in RFC 2616, Clause 14.35.1. It is restricted to a single expression identifying a
                  *  contiguous range of bytes.\n
                  *  If not present, the element refers to the entire resource referenced in the \c \@sourceURL attribute.
                  *  @return     a reference to a string
@@ -54,6 +54,13 @@ namespace dash
                  *  @return     a pointer to a dash::mpd::ISegment object
                  */
                 virtual ISegment*           ToSegment       (const std::vector<IBaseUrl *>& baseurls) const = 0;
+
+                /**
+                 * @return The hash value of this URL type.
+                 * TREY
+                 */
+                virtual const std::string&  GetHash       ()  const = 0;
+
         };
     }
 }

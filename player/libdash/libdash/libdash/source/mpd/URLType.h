@@ -31,16 +31,24 @@ namespace dash
 
                 const std::string&  GetSourceURL    ()  const;
                 const std::string&  GetRange        ()  const;
+                const std::string&  GetHash         ()  const;
+
                 ISegment*           ToSegment       (const std::vector<IBaseUrl *>& baseurls) const;
 
                 void    SetSourceURL    (const std::string& sourceURL);
                 void    SetRange        (const std::string& range);
                 void    SetType         (dash::metrics::HTTPTransactionType type);
+                //TREY
+                void    SetHash         (const std::string& hashValue);
+
 
             private:
                 std::string                         sourceURL;
                 std::string                         range;
                 dash::metrics::HTTPTransactionType  type;
+                //TREY
+                std::string                         hashValue;
+
         };
     }
 }

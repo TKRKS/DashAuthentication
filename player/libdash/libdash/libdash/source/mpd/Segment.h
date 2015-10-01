@@ -31,7 +31,7 @@ namespace dash
                 virtual ~Segment();
 
                 bool                                Init            (const std::vector<IBaseUrl *>& baseurls, const std::string &uri,
-                                                                     const std::string &range, dash::metrics::HTTPTransactionType type);
+                                                                     const std::string &range, dash::metrics::HTTPTransactionType type, const std::string &hashValue = std::string(""));// = "");
                 std::string&                        AbsoluteURI     ();
                 std::string&                        Host            ();
                 size_t                              Port            ();
@@ -41,6 +41,9 @@ namespace dash
                 size_t                              EndByte         ();
                 bool                                HasByteRange    ();
                 dash::metrics::HTTPTransactionType  GetType         ();
+                //TREY
+                std::string&                        GetHash         ();
+
 
                 void            AbsoluteURI  (std::string uri);
                 void            Host         (std::string host);
@@ -51,6 +54,8 @@ namespace dash
                 void            EndByte      (size_t endByte);
                 void            HasByteRange (bool hasByteRange);
                 void            SetType      (dash::metrics::HTTPTransactionType type);
+                void            SetHash      (std::string hashValue);
+
 
             private:
                 std::string                         absoluteuri;
@@ -62,6 +67,8 @@ namespace dash
                 size_t                              endByte;
                 bool                                hasByteRange;
                 dash::metrics::HTTPTransactionType  type;
+                std::string                         hashValue;
+
         };
     }
 }

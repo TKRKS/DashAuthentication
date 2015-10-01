@@ -88,9 +88,9 @@ std::string         SegmentTemplate::ReplaceParameters              (const std::
 
     dash::helpers::String::Split(uri, '$', chunks);
 
-    if (chunks.size() > 1) 
+    if (chunks.size() > 1)
     {
-        for(size_t i = 0; i < chunks.size(); i++) 
+        for(size_t i = 0; i < chunks.size(); i++)
         {
             if ( chunks.at(i) == "RepresentationID") {
                 chunks.at(i) = representationID;
@@ -116,7 +116,7 @@ std::string         SegmentTemplate::ReplaceParameters              (const std::
             }
         }
 
-        for(size_t i = 0; i < chunks.size(); i++) 
+        for(size_t i = 0; i < chunks.size(); i++)
             replacedUri += chunks.at(i);
 
         return replacedUri;

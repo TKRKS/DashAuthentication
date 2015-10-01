@@ -32,7 +32,7 @@ namespace dash
 
                 /**
                  *  This method allows you to specify an absolute URI for this Segment
-                 *  @param      uri     a string representing an URI 
+                 *  @param      uri     a string representing an URI
                  */
                 virtual void    AbsoluteURI  (std::string uri)   = 0;
 
@@ -79,6 +79,13 @@ namespace dash
                  *  @param      hasByteRange    a bool value, \c true to specify that this Segment has a byte range, \c false otherwise
                  */
                 virtual void    HasByteRange (bool hasByteRange) = 0;
+
+                /**
+                 *  Gets the hash value of the segment
+                 *  @return The hash value of the segment.
+                 */
+                virtual std::string& GetHash      ()                  = 0;
+
         };
     }
 }

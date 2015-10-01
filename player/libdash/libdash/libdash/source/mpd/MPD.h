@@ -38,6 +38,8 @@ namespace dash
                 const std::vector<std::string>&             GetLocations                    ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
+                //TREY
+                const std::string&                          GetSignature                    ()  const;
                 const std::string&                          GetId                           ()  const;
                 const std::vector<std::string>&             GetProfiles                     ()  const;
                 const std::string&                          GetType                         ()  const;
@@ -63,6 +65,8 @@ namespace dash
                 void    AddLocation                     (const std::string& location);
                 void    AddPeriod                       (Period *period);
                 void    AddMetrics                      (Metrics *metrics);
+                //TREY
+                void    SetSignature                    (const std::string& newSignature);
                 void    SetId                           (const std::string& id);
                 void    SetProfiles                     (const std::string& profiles);
                 void    SetType                         (const std::string& type);
@@ -84,6 +88,8 @@ namespace dash
                 std::vector<std::string>            locations;
                 std::vector<Period *>               periods;
                 std::vector<Metrics *>              metrics;
+                //TREY
+                std::string                         signature;
                 std::string                         id;
                 std::vector<std::string>            profiles;
                 std::string                         type;

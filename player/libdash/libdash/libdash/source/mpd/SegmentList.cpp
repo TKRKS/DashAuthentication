@@ -30,6 +30,7 @@ const std::vector<ISegmentURL*>& SegmentList::GetSegmentURLs    ()  const
 }
 void                            SegmentList::AddSegmentURL      (SegmentURL *segmentURL)
 {
+    std::cout << segmentURL->GetMediaURI() << " " << segmentURL->GetHash() << std::endl;
     this->segmentURLs.push_back(segmentURL);
 }
 const std::string&              SegmentList::GetXlinkHref       ()  const

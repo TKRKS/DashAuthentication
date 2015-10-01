@@ -85,7 +85,7 @@ dash::mpd::BaseUrl*                         Node::ToBaseUrl             ()  cons
     {
         baseUrl->SetUrl(this->mpdPath);
     }
-    else 
+    else
     {
         baseUrl->SetUrl(this->GetText());
     }
@@ -106,7 +106,7 @@ dash::mpd::Descriptor*                      Node::ToDescriptor          ()  cons
     {
         descriptor->SetValue(this->GetAttributeValue("value"));
     }
-    
+
     for(size_t i = 0; i < subNodes.size(); i++)
     {
         descriptor->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
@@ -168,7 +168,7 @@ dash::mpd::ContentComponent*                Node::ToContentComponent    ()  cons
 dash::mpd::URLType*                         Node::ToURLType             (HTTPTransactionType type)  const
 {
     dash::mpd::URLType* urlType = new dash::mpd::URLType();
-    
+
     if (this->HasAttribute("sourceURL"))
     {
         urlType->SetSourceURL(this->GetAttributeValue("sourceURL"));
@@ -177,6 +177,12 @@ dash::mpd::URLType*                         Node::ToURLType             (HTTPTra
     {
         urlType->SetRange(this->GetAttributeValue("range"));
     }
+    //TREY
+    if (this->HasAttribute("hash"))
+    {
+        urlType->SetHash(this->GetAttributeValue("hash"));
+    }
+    //std::cout << urlType->GetSourceURL() << " " << urlType->GetHash() << std::endl;
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
@@ -244,7 +250,6 @@ dash::mpd::SegmentTimeline*                 Node::ToSegmentTimeline     ()  cons
 dash::mpd::SegmentURL*                      Node::ToSegmentURL          ()  const
 {
     dash::mpd::SegmentURL *segmentUrl = new dash::mpd::SegmentURL();
-
     if (this->HasAttribute("media"))
     {
         segmentUrl->SetMediaURI(this->GetAttributeValue("media"));
@@ -261,6 +266,12 @@ dash::mpd::SegmentURL*                      Node::ToSegmentURL          ()  cons
     {
         segmentUrl->SetIndexRange(this->GetAttributeValue("indexRange"));
     }
+    if (this->HasAttribute("hash"))
+    {
+        segmentUrl->SetHash(this->GetAttributeValue("hash"));
+    }
+    //std::cout <<  segmentUrl->GetMediaURI() << " "<< segmentUrl->GetHash() << std::endl;
+
 
     for(size_t i = 0; i < subNodes.size(); i++)
     {
@@ -647,7 +658,7 @@ dash::mpd::Period*                          Node::ToPeriod              ()  cons
             continue;
         }
         period->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
-    }    
+    }
 
     period->AddRawAttributes(this->attributes);
     return period;
@@ -694,6 +705,8 @@ dash::mpd::Metrics*                         Node::ToMetrics             ()  cons
     metrics->AddRawAttributes(this->attributes);
     return metrics;
 }
+
+//TREY WILL MESS WITH THIS
 dash::mpd::MPD*                             Node::ToMPD                 ()  const
 {
     dash::mpd::MPD *mpd = new dash::mpd::MPD();
@@ -774,6 +787,10 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
         {
             mpd->AddMetrics(subNodes.at(i)->ToMetrics());
             continue;
+        }
+        //TREY
+        if (subNodes.at(i)->GetName() == "Signature") {
+            mpd->SetSignature(subNodes.at(i)->GetText());
         }
         mpd->AddAdditionalSubNode((xml::INode *) new Node(*(subNodes.at(i))));
     }

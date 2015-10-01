@@ -44,11 +44,20 @@ void                URLType::SetType        (HTTPTransactionType type)
 {
     this->type = type;
 }
+//TREY
+const std::string&  URLType::GetHash       ()  const
+{
+    return this->hashValue;
+}
+void                URLType::SetHash       (const std::string& hashValue)
+{
+    this->hashValue = hashValue;
+}
 ISegment*           URLType::ToSegment      (const std::vector<IBaseUrl *>& baseurls) const
 {
     Segment *seg = new Segment();
-    
-    if(seg->Init(baseurls, this->sourceURL, this->range, this->type))
+
+    if(seg->Init(baseurls, this->sourceURL, this->range, this->type, this->hashValue))
         return seg;
 
     delete(seg);

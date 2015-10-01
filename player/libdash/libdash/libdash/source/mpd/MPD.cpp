@@ -40,7 +40,7 @@ MPD::~MPD   ()
         delete(this->baseUrls.at(i));
 }
 
-const std::vector<IProgramInformation *>&   MPD::GetProgramInformations             () const 
+const std::vector<IProgramInformation *>&   MPD::GetProgramInformations             () const
 {
     return (std::vector<IProgramInformation *> &) this->programInformations;
 }
@@ -64,7 +64,7 @@ void                                        MPD::AddLocation                    
 {
     this->locations.push_back(location);
 }
-const std::vector<IPeriod*>&                MPD::GetPeriods                         () const 
+const std::vector<IPeriod*>&                MPD::GetPeriods                         () const
 {
     return (std::vector<IPeriod*> &) this->periods;
 }
@@ -72,13 +72,22 @@ void                                        MPD::AddPeriod                      
 {
     this->periods.push_back(period);
 }
-const std::vector<IMetrics *>&              MPD::GetMetrics                         () const 
+const std::vector<IMetrics *>&              MPD::GetMetrics                         () const
 {
     return (std::vector<IMetrics *> &) this->metrics;
 }
 void                                        MPD::AddMetrics                         (Metrics *metrics)
 {
     this->metrics.push_back(metrics);
+}
+//TREY
+const std::string&                          MPD::GetSignature                       ()  const
+{
+    return this->signature;
+}
+void                                        MPD::SetSignature                       (const std::string& newSignature)
+{
+    this->signature = newSignature;
 }
 const std::string&                          MPD::GetId                              ()  const
 {
