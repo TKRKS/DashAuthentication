@@ -19,7 +19,8 @@ using namespace dash::mpd;
 
 #define SEGMENTBUFFER_SIZE 2
 
-MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTAudioRenderer *audioElement) :
+//DASH AUTHENTICATION
+MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTAudioRenderer *audioElement, std::string& publicKeyLocation) :
                    videoElement                 (videoElement),
                    audioElement                 (audioElement),
                    mpd                          (NULL),
@@ -36,7 +37,8 @@ MultimediaManager::MultimediaManager            (QTGLRenderer *videoElement, QTA
                    framesDisplayed              (0),
                    segmentsDownloaded           (0),
                    isVideoRendering             (false),
-                   isAudioRendering             (false)
+                   isAudioRendering             (false),
+                   publicKeyLocation            (publicKeyLocation)
 {
     InitializeCriticalSection (&this->monitorMutex);
 

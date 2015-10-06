@@ -21,7 +21,7 @@ using namespace sampleplayer::managers;
 using namespace dash::mpd;
 using namespace std;
 
-DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
+DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui, std::string& publicKeyLocation) :
             gui         (&gui)
 {
     InitializeCriticalSection(&this->monitorMutex);
@@ -29,7 +29,8 @@ DASHPlayer::DASHPlayer  (QtSamplePlayerGui &gui) :
     this->SetSettings(0, 0, 0, 0, 0);
     this->videoElement      = gui.GetVideoElement();
     this->audioElement      = new QTAudioRenderer(&gui);
-    this->multimediaManager = new MultimediaManager(this->videoElement, this->audioElement);
+    //DASH AUTHENTICATION
+    this->multimediaManager = new MultimediaManager(this->videoElement, this->audioElement, publicKeyLocation);
 
     this->multimediaManager->SetFrameRate(24);
     this->multimediaManager->AttachManagerObserver(this);

@@ -45,7 +45,8 @@ namespace sampleplayer
         Q_OBJECT
 
         public:
-            DASHPlayer          (QtSamplePlayerGui& gui);
+            //DASH AUTHENTICATION
+            DASHPlayer          (QtSamplePlayerGui& gui, std::string& publicKeyLocation);
             virtual ~DASHPlayer ();
 
             virtual void OnSettingsChanged      (int period, int videoAdaptationSet, int videoRepresentation, int audioAdaptationSet, int audioRepresentation);

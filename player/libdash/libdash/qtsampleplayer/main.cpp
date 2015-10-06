@@ -19,7 +19,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QtSamplePlayerGui w;
 
-    DASHPlayer p(w);
+    //Modified
+    std::string keyPath(argv[1]);
+    DASHPlayer p(w, keyPath);
 
     w.show();
 

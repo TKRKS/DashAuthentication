@@ -30,7 +30,8 @@ namespace sampleplayer
         class MultimediaManager : public IStreamObserver
         {
             public:
-                MultimediaManager           (renderer::QTGLRenderer *videoElement, renderer::QTAudioRenderer *audioElement);
+                //DASH AUTHENTICATION
+                MultimediaManager           (renderer::QTGLRenderer *videoElement, renderer::QTAudioRenderer *audioElement, std::string& publicKeyLocation);
                 virtual ~MultimediaManager  ();
 
                 bool                Init    (const std::string& url);
@@ -81,6 +82,9 @@ namespace sampleplayer
                 THREAD_HANDLE                                               audioRendererHandle;
                 bool                                                        isVideoRendering;
                 bool                                                        isAudioRendering;
+                //DASH AUTHENTICATION
+                std::string&                                                publicKeyLocation;
+
 
                 /* Threads for Rendering Audio & Video */
                 bool            StartVideoRenderingThread   ();
