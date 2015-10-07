@@ -25,6 +25,16 @@
 
 //DASH AUTHENTICATION
 #include <fstream>
+#include <base64.h>
+#include <cryptlib.h>
+#include <files.h>
+#include <filters.h>
+#include <hex.h>
+#include <modes.h>
+#include <osrng.h>
+#include <rsa.h>
+#include <sha.h>
+using namespace CryptoPP;
 
 namespace sampleplayer
 {

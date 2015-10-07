@@ -27,9 +27,11 @@ find_package(LibAV REQUIRED)
 
 set(LIBDASH_LIBRARIES "../build/bin/" CACHE PATH "Path to libdash.so")
 set(LIBDASH_INCLUDES "../libdash/include/" CACHE PATH "Path to libdash includes")
+set(CRYPTOPP_LIBRARIES "/usr/lib/" CACHE PATH "Path to libcrypto.so")
+set(CRYPTOPP_INCLUDES "/usr/include/cryptopp" CACHE PATH "Path to cryptopp includes")
 
-include_directories(${LIBDASH_INCLUDES})
-link_directories(${LIBDASH_LIBRARIES})
+include_directories(${LIBDASH_INCLUDES} ${CRYPTOPP_INCLUDES})
+link_directories(${LIBDASH_LIBRARIES} ${CRYPTOPP_INCLUDES})
 
 file(GLOB qtplayer_SOURCE RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} Decoder/*.cpp libdashframework/MPD/*.cpp libdashframework/Adaptation/*.cpp libdashframework/Buffer/*.cpp libdashframework/Input/*.cpp libdashframework/Portable/*.cpp Managers/*.cpp Renderer/*.cpp UI/*.cpp UI/IDASHPlayerGuiObserver.h main.cpp)
 
@@ -43,4 +45,4 @@ add_executable(qtsampleplayer ${qtplayer_SOURCE} ${qtsampleplayer_FORMS_HEADERS}
 qt5_use_modules(qtsampleplayer Core Widgets Multimedia MultimediaWidgets Gui OpenGL)
 
 # For the linker
-target_link_libraries(qtsampleplayer dash ${QT_LIBRARIES} ${LIBAV_LIBRARIES} -lpthread)
+target_link_libraries(qtsampleplayer dash ${QT_LIBRARIES} ${LIBAV_LIBRARIES} -lpthread -lcryptopp)

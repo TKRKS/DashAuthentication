@@ -86,7 +86,7 @@ bool    MultimediaManager::Init                             (const std::string& 
     std::cout << "MPD Signature: " << this->mpd->GetSignature() << std::endl;
 
     //Validate MPD
-    /*if (!ValidateSignature(mpdLocation, this->mpd->GetSignature())) {
+    if (!ValidateSignature(mpdLocation, this->mpd->GetSignature())) {
         //Remove MPD copy
         std::stringstream rm;
         rm << "rm " << mpdLocation;
@@ -100,7 +100,7 @@ bool    MultimediaManager::Init                             (const std::string& 
     //Erase local MPD
     std::stringstream rm;
     rm << "rm " << mpdLocation;
-    system((char *)rm.str().c_str());*/
+    system((char *)rm.str().c_str());
 
 
     if(this->mpd == NULL)
@@ -411,5 +411,35 @@ void MultimediaManager::RemoveSignatureFromMpdFile               (std::string& f
 }
 
 bool MultimediaManager::ValidateSignature                        (std::string& fileLocation, const std::string& sig) {
-    return true;
+   //Read public key
+   CryptoPP::ByteQueue publicKeyBytes;
+   FileSource publicKeyFile(publicKeyLocation.c_str(), true, new Base64Decoder);
+   publicKeyFile.TransferTo(publicKeyBytes);
+   publicKeyBytes.MessageEnd();
+   RSA::PublicKey publicKey;
+   publicKey.Load(publicKeyBytes);
+
+   RSASSA_PKCS1v15_SHA_Verifier verifier(publicKey);
+
+   //Read signed message
+   string mpdText;
+   FileSource(fileLocation.c_str(), true, new StringSink(mpdText));
+   string signatureText;
+   StringSource(sig.c_str(), new HexDecoder(new StringSink(signatureText)));
+
+   string combined(mpdText);
+   combined.append(signatureText);
+
+   //Verify signature
+   try{
+       StringSource(combined, true,
+           new SignatureVerificationFilter(
+               verifier, NULL,
+               SignatureVerificationFilter::THROW_EXCEPTION
+          )
+       );
+       return true;
+   } catch(SignatureVerificationFilter::SignatureVerificationFailed &err) {
+       return false;
+   }
 }
