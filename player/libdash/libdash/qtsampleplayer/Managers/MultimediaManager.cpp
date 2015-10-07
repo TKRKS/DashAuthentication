@@ -83,10 +83,10 @@ bool    MultimediaManager::Init                             (const std::string& 
     //Remove signature from MPD file
     RemoveSignatureFromMpdFile(mpdLocation);
 
-    std::cout << "MPD Signature" << this->mpd->GetSignature() << endl;
+    std::cout << "MPD Signature: " << this->mpd->GetSignature() << std::endl;
 
     //Validate MPD
-    if (!ValidateSignature(mpdLocation, this->mpd->GetSignature())) {
+    /*if (!ValidateSignature(mpdLocation, this->mpd->GetSignature())) {
         //Remove MPD copy
         std::stringstream rm;
         rm << "rm " << mpdLocation;
@@ -100,7 +100,7 @@ bool    MultimediaManager::Init                             (const std::string& 
     //Erase local MPD
     std::stringstream rm;
     rm << "rm " << mpdLocation;
-    system((char *)rm.str().c_str());
+    system((char *)rm.str().c_str());*/
 
 
     if(this->mpd == NULL)
@@ -401,7 +401,7 @@ void MultimediaManager::RemoveSignatureFromMpdFile               (std::string& f
 
         //Remove signature tag and contents
         std::stringstream newContents;
-        newContents << contents.substr(0, openSig) << contents.substr(closeSig + 12);
+        newContents << contents.substr(0, openSig - 1) << contents.substr(closeSig + 13);
 
         //Replace old file with new signatureless string
         std::ofstream newMpd((char *)fileLocation.c_str());
