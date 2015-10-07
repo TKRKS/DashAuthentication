@@ -83,8 +83,6 @@ bool    MultimediaManager::Init                             (const std::string& 
     //Remove signature from MPD file
     RemoveSignatureFromMpdFile(mpdLocation);
 
-    std::cout << "MPD Signature: " << this->mpd->GetSignature() << std::endl;
-
     //Validate MPD
     if (!ValidateSignature(mpdLocation, this->mpd->GetSignature())) {
         //Remove MPD copy
@@ -422,12 +420,15 @@ bool MultimediaManager::ValidateSignature                        (std::string& f
    RSASSA_PKCS1v15_SHA_Verifier verifier(publicKey);
 
    //Read signed message
-   string mpdText;
+   std::string mpdText;
    FileSource(fileLocation.c_str(), true, new StringSink(mpdText));
-   string signatureText;
-   StringSource(sig.c_str(), new HexDecoder(new StringSink(signatureText)));
+   std::string signatureText;
+   HexDecoder decoder;
+   decoder.Attach(new StringSink(signatureText));
+   decoder.Put( (const byte*) sig.c_str(), sig.size() );
+   decoder.MessageEnd();
 
-   string combined(mpdText);
+   std::string combined(mpdText);
    combined.append(signatureText);
 
    //Verify signature
