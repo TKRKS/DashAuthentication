@@ -23,6 +23,9 @@
 #include "../libdashframework/Buffer/AudioChunk.h"
 #include <QtMultimedia/qaudiooutput.h>
 
+//DASH AUTHENTICATION
+#include <fstream>
+
 namespace sampleplayer
 {
     namespace managers
@@ -105,6 +108,10 @@ namespace sampleplayer
                 void NotifyVideoSegmentBufferObservers  (uint32_t fillstateInPercent);
                 void NotifyAudioBufferObservers         (uint32_t fillstateInPercent);
                 void NotifyAudioSegmentBufferObservers  (uint32_t fillstateInPercent);
+
+                //DASH AUTHENTICATION
+                void RemoveSignatureFromMpdFile          (std::string& fileLocation);
+                bool ValidateSignature                        (std::string& fileLocation, const std::string& sig);
         };
     }
 }

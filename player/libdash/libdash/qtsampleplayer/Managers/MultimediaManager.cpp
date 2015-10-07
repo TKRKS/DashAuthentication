@@ -61,7 +61,47 @@ bool    MultimediaManager::Init                             (const std::string& 
 {
     EnterCriticalSection(&this->monitorMutex);
 
+    //DASH AUTHENTICATION
+    //Download mpd so we can authenticate before we parse it
+    std::stringstream wget;
+    wget << "wget " << url.c_str();
+    system((char *)wget.str().c_str());
+    //Authenticate MPD
+    //parse local copy of MPD
+    int lastIndex = url.find_last_of('/');
+    //std::cout << url.substr(lastIndex + 1) << std::endl;
+    std::string mpdLocation = url.substr(lastIndex + 1);
+
     this->mpd = this->manager->Open((char *)url.c_str());
+
+    //std::cout << this->publicKeyLocation << std::endl;
+    //std::cout << this->mpd->GetSignature() << std::endl;
+
+    //Fix base url so we can download segments correctly
+    this->mpd->GetMPDPathBaseUrl()->SetUrl(url.substr(0, lastIndex));
+
+    //Remove signature from MPD file
+    RemoveSignatureFromMpdFile(mpdLocation);
+
+    std::cout << "MPD Signature" << this->mpd->GetSignature() << endl;
+
+    //Validate MPD
+    if (!ValidateSignature(mpdLocation, this->mpd->GetSignature())) {
+        //Remove MPD copy
+        std::stringstream rm;
+        rm << "rm " << mpdLocation;
+        system((char *)rm.str().c_str());
+        //Invalid signature, so quit
+        std::cerr << "Invalid Signature" << std::endl;
+        exit(1);
+    } else {
+        std::cout << "MPD Signature Validated" << std::endl;
+    }
+    //Erase local MPD
+    std::stringstream rm;
+    rm << "rm " << mpdLocation;
+    system((char *)rm.str().c_str());
+
 
     if(this->mpd == NULL)
     {
@@ -342,4 +382,34 @@ void*   MultimediaManager::RenderAudio        (void *data)
     }
 
     return NULL;
+}
+
+//DASH AUTHENTICATION
+void MultimediaManager::RemoveSignatureFromMpdFile               (std::string& fileLocation) {
+    std::ifstream mpd((char *)fileLocation.c_str(), std::ios::in | std::ios::binary);
+    //Read file into string
+    if (mpd) {
+        //Read file into string
+        std::string contents;
+        mpd.seekg(0, std::ios::end);
+        contents.resize(mpd.tellg());
+        mpd.seekg(0, std::ios::beg);
+        mpd.read(&contents[0], contents.size());
+        mpd.close();
+        int openSig = contents.find("<Signature>");
+        int closeSig = contents.find("</Signature>");
+
+        //Remove signature tag and contents
+        std::stringstream newContents;
+        newContents << contents.substr(0, openSig) << contents.substr(closeSig + 12);
+
+        //Replace old file with new signatureless string
+        std::ofstream newMpd((char *)fileLocation.c_str());
+        newMpd << newContents.rdbuf();
+        newMpd.close();
+    }
+}
+
+bool MultimediaManager::ValidateSignature                        (std::string& fileLocation, const std::string& sig) {
+    return true;
 }

@@ -34,7 +34,7 @@
         <widget class="QComboBox" name="cb_mpd">
          <item>
           <property name="text">
-           <string>http://127.0.0.1/car/authenticatedMpd.mpd</string>
+           <string>http://127.0.0.1/car/backup.mpd</string>
           </property>
          </item>
         </widget>
@@ -42,7 +42,7 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_mpd">
          <property name="text">
-          <string>http://127.0.0.1/car/authenticatedMpd.mpd</string>
+          <string>http://127.0.0.1/car/backup.mpd</string>
          </property>
         </widget>
        </item>
