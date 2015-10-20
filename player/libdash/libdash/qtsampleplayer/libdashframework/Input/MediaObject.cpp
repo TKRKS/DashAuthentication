@@ -59,7 +59,32 @@ void                MediaObject::WaitFinished           ()
 }
 int                 MediaObject::Read                   (uint8_t *data, size_t len)
 {
-    return this->segment->Read(data, len);
+    int read = this->segment->Read(data, len);
+    for (int i = 0; i < read; i++) {
+        segmentBytes.push_back(data[i]);
+    }
+    //DASH AUTHENTICATION
+    if (read == 0) {
+        SHA512 calculatedHash;
+        byte calculatedHashBuffer[2 * SHA512::DIGESTSIZE];
+
+        byte* segmentBytesArray = &segmentBytes[0];
+        std::cout << segmentBytes.size() << std::endl;
+        ArraySource source(segmentBytesArray, segmentBytes.size(), true,
+                 new HashFilter(calculatedHash,
+                 new HexEncoder(new ArraySink(calculatedHashBuffer, 2 * SHA512::DIGESTSIZE))));
+        std::string calculatedHashString((const char*)calculatedHashBuffer, 2 * SHA512::DIGESTSIZE);
+
+        if (calculatedHashString == this->GetHash()) {
+            std::cout << "Valid hash for segment with hash value " << std::endl << this->GetHash() << std::endl;
+        } else {
+            std::cout << "Authentication Failure!" << std::endl;
+            std::cout << "Invalid hash for hash value " << this->GetHash() << std::endl;
+            std::cout << "Calculated has was " << calculatedHashString << std::endl;
+            quick_exit(1);
+        }
+    }
+    return read;
 }
 int                 MediaObject::Peek                   (uint8_t *data, size_t len)
 {
@@ -92,4 +117,9 @@ const std::vector<ITCPConnection *>&    MediaObject::GetTCPConnectionList   () c
 const std::vector<IHTTPTransaction *>&  MediaObject::GetHTTPTransactionList () const
 {
     return this->segment->GetHTTPTransactionList();
+}
+
+//DASH AUTHENTICATION
+const std::string                       MediaObject::GetHash() {
+    return this->segment->GetHash();
 }

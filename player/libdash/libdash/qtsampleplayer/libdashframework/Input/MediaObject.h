@@ -17,6 +17,19 @@
 #include "IDASHMetrics.h"
 #include "../Portable/MultiThreading.h"
 
+#include <gmpxx.h>
+#include <cryptopp/base64.h>
+#include <cryptopp/cryptlib.h>
+#include <cryptopp/files.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/hex.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/osrng.h>
+#include <cryptopp/rsa.h>
+#include <cryptopp/sha.h>
+
+using namespace CryptoPP;
+
 namespace libdash
 {
     namespace framework
@@ -36,6 +49,8 @@ namespace libdash
                     int                         Peek                (uint8_t *data, size_t len);
                     int                         Peek                (uint8_t *data, size_t len, size_t offset);
                     dash::mpd::IRepresentation* GetRepresentation   ();
+                    //DASH AUTHENTICATION
+                    const std::string           GetHash             ();
 
                     virtual void    OnDownloadStateChanged  (dash::network::DownloadState state);
                     virtual void    OnDownloadRateChanged   (uint64_t bytesDownloaded);
@@ -49,6 +64,8 @@ namespace libdash
                     dash::mpd::ISegment             *segment;
                     dash::mpd::IRepresentation      *rep;
                     dash::network::DownloadState    state;
+                    //DASH AUTHENTICATION
+                    std::vector<byte>               segmentBytes;
 
                     mutable CRITICAL_SECTION    stateLock;
                     mutable CONDITION_VARIABLE  stateChanged;

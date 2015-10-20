@@ -17,4 +17,4 @@ validationTest:
 	g++ -g -O0 -DDEBUG -Wall -Wno-unused -std=c++11 -o validationTest ValidationTest.cpp -lcryptopp -lpthread
 
 clean:
-	rm -f generateKey mpdParser validationTest
+	rm -f generateKey mpdParser validationTest hashFile

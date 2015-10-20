@@ -9,7 +9,18 @@ string hashFile(string fileName) {
 	SHA512 hash;
 	byte buffer[2 * SHA512::DIGESTSIZE];
 
-	FileSource f(fileName.c_str(), true,
+	streampos begin,end;
+	ifstream file(fileName, ios::binary);
+	begin = file.tellg();
+	file.seekg (0, ios::end);
+	end = file.tellg();
+	file.seekg (0, ios::beg);
+
+	long fileSize = (end - begin);
+	byte fileBuffer[fileSize];
+	file.read(fileBuffer, fileSize);
+	file.close();
+	ArraySource source(fileBuffer, fileSize, true,
 		     new HashFilter(hash,
 		     new HexEncoder(new ArraySink(buffer,2 * SHA512::DIGESTSIZE))));
 
@@ -88,7 +99,7 @@ int main (int argc, const char* argv[]) {
 	outputFile.close();
 
 	//Sign hashed mpd
-	/*string signature = signMpd(modifiedFileName, string(argv[3]));
+	string signature = signMpd(modifiedFileName, string(argv[3]));
 	rapidxml::file<> hashedMpdFile(modifiedFileName.c_str());
 	xml_document<> hashedMpd;
 	hashedMpd.parse<0>(hashedMpdFile.data());
@@ -101,5 +112,5 @@ int main (int argc, const char* argv[]) {
     	std::ofstream finalOutputFile;
     	finalOutputFile.open(string(string(argv[2]) + "/authenticatedMpd.mpd"));
 	finalOutputFile << hashedMpd;
-	finalOutputFile.close();*/
+	finalOutputFile.close();
 }
