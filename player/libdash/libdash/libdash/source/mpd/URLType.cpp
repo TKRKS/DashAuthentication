@@ -44,7 +44,7 @@ void                URLType::SetType        (HTTPTransactionType type)
 {
     this->type = type;
 }
-//TREY
+//DASH AUTHENTICATION
 const std::string&  URLType::GetHash       ()  const
 {
     return this->hashValue;

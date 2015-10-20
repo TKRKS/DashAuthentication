@@ -41,7 +41,7 @@ namespace dash
                 size_t                              EndByte         ();
                 bool                                HasByteRange    ();
                 dash::metrics::HTTPTransactionType  GetType         ();
-                //TREY
+                //DASH AUTHENTICATION
                 std::string&                        GetHash         ();
 
 

@@ -57,7 +57,7 @@ namespace dash
 
                 /**
                  * @return The hash value of this URL type.
-                 * TREY
+                 * DASH AUTHENTICATION
                  */
                 virtual const std::string&  GetHash       ()  const = 0;
 

@@ -136,7 +136,7 @@ void                Segment::SetType            (HTTPTransactionType type)
 {
     this->type = type;
 }
-//TREY
+//DASH AUTHENTICATION
 std::string&        Segment::GetHash            ()
 {
     return this->hashValue;

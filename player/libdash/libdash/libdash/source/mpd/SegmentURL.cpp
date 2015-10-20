@@ -57,7 +57,7 @@ void                SegmentURL::SetIndexRange   (const std::string& indexRange)
 {
     this->indexRange = indexRange;
 }
-//TREY
+//DASH AUTHENTICATION
 const std::string&  SegmentURL::GetHash         ()  const
 {
     return this->hashValue;

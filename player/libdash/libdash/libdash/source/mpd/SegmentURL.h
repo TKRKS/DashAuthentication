@@ -33,7 +33,7 @@ namespace dash
                 const std::string&  GetMediaRange   ()  const;
                 const std::string&  GetIndexURI     ()  const;
                 const std::string&  GetIndexRange   ()  const;
-                //TREY
+                //DASH AUTHENTICATION
                 const std::string&  GetHash         ()  const;
 
                 ISegment*           ToMediaSegment  (const std::vector<IBaseUrl *>& baseurls) const;
@@ -43,7 +43,7 @@ namespace dash
                 void    SetMediaRange   (const std::string& mediaRange);
                 void    SetIndexURI     (const std::string& indexURI);
                 void    SetIndexRange   (const std::string& indexRange);
-                //TREY
+                //DASH AUTHENTICATION
                 void    SetHash         (const std::string& hashValue);
 
 
@@ -52,7 +52,7 @@ namespace dash
                 std::string mediaRange;
                 std::string indexURI;
                 std::string indexRange;
-                //TREY
+                //DASH AUTHENTICATION
                 std::string hashValue;
 
         };

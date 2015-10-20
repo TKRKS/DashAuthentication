@@ -80,7 +80,7 @@ void                                        MPD::AddMetrics                     
 {
     this->metrics.push_back(metrics);
 }
-//TREY
+//DASH AUTHENTICATION
 const std::string&                          MPD::GetSignature                       ()  const
 {
     return this->signature;

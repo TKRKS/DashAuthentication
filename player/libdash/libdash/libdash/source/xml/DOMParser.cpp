@@ -9,7 +9,7 @@
  * and conditions of the applicable license agreement.
  *****************************************************************************/
 
-//TREY CHANGED THIS SOME!!!!
+//DASH AUTHENTICATION
 
 #include "DOMParser.h"
 
@@ -42,8 +42,7 @@ bool    DOMParser::Parse                    ()
 
     if(xmlTextReaderRead(this->reader))
         this->root = this->ProcessNode();
-    //TREY
-    //this->Print();
+    //DASH AUTHENTICATION
 
     if(this->root == NULL)
         return false;

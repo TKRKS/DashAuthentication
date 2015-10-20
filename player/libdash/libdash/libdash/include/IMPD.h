@@ -88,7 +88,7 @@ namespace dash
                 /**
                  *  Returns a reference to a string that is the signature in a formate readable by libgcrypt.
                  *  @return     The string representing the signature.
-                 *  TREY
+                 *  DASH AUTHENTICATION
                  */
                 virtual const std::string&                          GetSignature                    ()  const = 0;
 

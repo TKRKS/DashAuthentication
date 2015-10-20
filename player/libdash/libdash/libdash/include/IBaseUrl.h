@@ -66,7 +66,7 @@ namespace dash
                 /**
                  *  Changes the base URL to a given string
                  *  @param url The url to change it to
-                 *  TREY
+                 *  DASH AUTHENTICATION
                  */
                 virtual void                 SetUrl             (const std::string& url) = 0;
 

@@ -177,7 +177,7 @@ dash::mpd::URLType*                         Node::ToURLType             (HTTPTra
     {
         urlType->SetRange(this->GetAttributeValue("range"));
     }
-    //TREY
+    //DASH AUTHENTICATION
     if (this->HasAttribute("hash"))
     {
         urlType->SetHash(this->GetAttributeValue("hash"));
@@ -706,7 +706,7 @@ dash::mpd::Metrics*                         Node::ToMetrics             ()  cons
     return metrics;
 }
 
-//TREY WILL MESS WITH THIS
+//DASH AUTHENTICATION
 dash::mpd::MPD*                             Node::ToMPD                 ()  const
 {
     dash::mpd::MPD *mpd = new dash::mpd::MPD();
@@ -788,7 +788,7 @@ dash::mpd::MPD*                             Node::ToMPD                 ()  cons
             mpd->AddMetrics(subNodes.at(i)->ToMetrics());
             continue;
         }
-        //TREY
+        //DASH AUTHENTICATION
         if (subNodes.at(i)->GetName() == "Signature") {
             mpd->SetSignature(subNodes.at(i)->GetText());
         }

@@ -38,7 +38,7 @@ namespace dash
                 const std::vector<std::string>&             GetLocations                    ()  const;
                 const std::vector<IPeriod *>&               GetPeriods                      ()  const;
                 const std::vector<IMetrics *>&              GetMetrics                      ()  const;
-                //TREY
+                //DASH AUTHENTICATION
                 const std::string&                          GetSignature                    ()  const;
                 const std::string&                          GetId                           ()  const;
                 const std::vector<std::string>&             GetProfiles                     ()  const;
@@ -65,7 +65,7 @@ namespace dash
                 void    AddLocation                     (const std::string& location);
                 void    AddPeriod                       (Period *period);
                 void    AddMetrics                      (Metrics *metrics);
-                //TREY
+                //DASH AUTHENTICATION
                 void    SetSignature                    (const std::string& newSignature);
                 void    SetId                           (const std::string& id);
                 void    SetProfiles                     (const std::string& profiles);
@@ -88,7 +88,7 @@ namespace dash
                 std::vector<std::string>            locations;
                 std::vector<Period *>               periods;
                 std::vector<Metrics *>              metrics;
-                //TREY
+                //DASH AUTHENTICATION
                 std::string                         signature;
                 std::string                         id;
                 std::vector<std::string>            profiles;
