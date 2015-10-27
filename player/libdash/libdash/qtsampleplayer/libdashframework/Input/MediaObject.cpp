@@ -65,18 +65,27 @@ int                 MediaObject::Read                   (uint8_t *data, size_t l
     }
     //DASH AUTHENTICATION
     if (read == 0) {
+        std::chrono::high_resolution_clock::time_point methodStart = std::chrono::high_resolution_clock::now();
+
         SHA512 calculatedHash;
         byte calculatedHashBuffer[2 * SHA512::DIGESTSIZE];
 
         byte* segmentBytesArray = &segmentBytes[0];
         std::cout << segmentBytes.size() << std::endl;
+        std::chrono::high_resolution_clock::time_point cryptoStart = std::chrono::high_resolution_clock::now();
         ArraySource source(segmentBytesArray, segmentBytes.size(), true,
                  new HashFilter(calculatedHash,
                  new HexEncoder(new ArraySink(calculatedHashBuffer, 2 * SHA512::DIGESTSIZE))));
+        std::chrono::high_resolution_clock::time_point methodEnd = std::chrono::high_resolution_clock::now();
         std::string calculatedHashString((const char*)calculatedHashBuffer, 2 * SHA512::DIGESTSIZE);
-
         if (calculatedHashString == this->GetHash()) {
             std::cout << "Valid hash for segment with hash value " << std::endl << this->GetHash() << std::endl;
+            std::cout << "Segment Method duration: "
+            << std::chrono::duration_cast<std::chrono::duration<double>>(methodEnd - methodStart).count()
+            << " seconds" << std:: endl;
+            std::cout << "Segment Crypto duration: "
+            << std::chrono::duration_cast<std::chrono::duration<double>>(methodEnd - cryptoStart).count()
+            << " seconds" << std:: endl;
         } else {
             std::cout << "Authentication Failure!" << std::endl;
             std::cout << "Invalid hash for hash value " << this->GetHash() << std::endl;

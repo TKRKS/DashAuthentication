@@ -8,7 +8,7 @@
 cmake_minimum_required(VERSION 2.8.8)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
-set(CMAKE_CXX_FLAGS "-D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS")  # Second macro definition is required to fix the error: ‘UINT32_MAX’ was not declared in this scope
+set(CMAKE_CXX_FLAGS "-D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -std=c++11")  # Second macro definition is required to fix the error: ‘UINT32_MAX’ was not declared in this scope  DASH AUTHENTICATION added C++ 11 flag
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -27,6 +27,7 @@ find_package(LibAV REQUIRED)
 
 set(LIBDASH_LIBRARIES "../build/bin/" CACHE PATH "Path to libdash.so")
 set(LIBDASH_INCLUDES "../libdash/include/" CACHE PATH "Path to libdash includes")
+# DASH AUTHENTICATION added cryptopp libraries
 set(CRYPTOPP_LIBRARIES "/usr/lib/" CACHE PATH "Path to libcrypto.so")
 set(CRYPTOPP_INCLUDES "/usr/include/cryptopp" CACHE PATH "Path to cryptopp includes")
 

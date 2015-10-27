@@ -409,6 +409,7 @@ void MultimediaManager::RemoveSignatureFromMpdFile               (std::string& f
 }
 
 bool MultimediaManager::ValidateSignature                        (std::string& fileLocation, const std::string& sig) {
+   std::chrono::high_resolution_clock::time_point methodStart = std::chrono::high_resolution_clock::now();
    //Read public key
    CryptoPP::ByteQueue publicKeyBytes;
    FileSource publicKeyFile(publicKeyLocation.c_str(), true, new Base64Decoder);
@@ -431,7 +432,8 @@ bool MultimediaManager::ValidateSignature                        (std::string& f
    std::string combined(mpdText);
    combined.append(signatureText);
 
-   //Verify signature
+   //Verify signature'
+   std::chrono::high_resolution_clock::time_point cryptoStart = std::chrono::high_resolution_clock::now();
    try{
        StringSource(combined, true,
            new SignatureVerificationFilter(
@@ -439,8 +441,22 @@ bool MultimediaManager::ValidateSignature                        (std::string& f
                SignatureVerificationFilter::THROW_EXCEPTION
           )
        );
+       std::chrono::high_resolution_clock::time_point methodEnd = std::chrono::high_resolution_clock::now();
+       std::cout << "MPD Authentication Method duration: "
+       << std::chrono::duration_cast<std::chrono::duration<double>>(methodEnd - methodStart).count()
+       << " seconds" << std:: endl;
+       std::cout << "MPD Authentication Crypto duration: "
+       << std::chrono::duration_cast<std::chrono::duration<double>>(methodEnd - cryptoStart).count()
+       << " seconds" << std:: endl;
        return true;
    } catch(SignatureVerificationFilter::SignatureVerificationFailed &err) {
+       std::chrono::high_resolution_clock::time_point methodEnd = std::chrono::high_resolution_clock::now();
+       std::cout << "MPD Authentication Method duration: "
+       << std::chrono::duration_cast<std::chrono::duration<double>>(methodEnd - methodStart).count()
+       << " seconds" << std:: endl;
+       std::cout << "MPD Authentication Crypto duration: "
+       << std::chrono::duration_cast<std::chrono::duration<double>>(methodEnd - cryptoStart).count()
+       << " seconds" << std:: endl;
        return false;
    }
 }
