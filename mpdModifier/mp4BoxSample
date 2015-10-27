@@ -1,0 +1,1 @@
+MP4Box -frag 10000 -dash 30000 -segment-name test /var/www/car/car-20120827-85.mp4
