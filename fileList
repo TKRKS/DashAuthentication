@@ -1,0 +1,23 @@
+Included Files
+The locations are in reference to the DashAuthentication folder
+./CS 6235 Perofmrance.xlsx- An excel spreadsheet listing all the performance measurements taken for the graphs
+./fileList- A list of important files and folders in the project.
+./instructions- Instructions for compiling and running the parts of my project.
+./mpdModifier- A folder containing all the files related to updating an MPD to include informatin for authentication
+./mpdModifier/Crypto.h- The header file use to include all the cryptography needed for the mpdParser.
+./mpdModifier/GenerateKey.cpp- The source code of the generateKey program that creates a public/private key pair.
+./mpdModifier/Makefile- The makefile used to compile the mpdParser program.
+./mpdModifier/mp4BoxSample- Sample instructions for running the MP4 Box application and making an mpd out of an mp4 file.
+./mpdModifier/MpdParser.cpp- The source code for the mpdParser program that updates manifests to include authentication information.
+./mpdModifier/rapidXML- The location of the RapidXML C++ header library.
+./player- A folder containing all the files related to the video player.  This is mainly just the libdash library, as I didn't add any new files to the folder.  To find all the files I modified, run the following command in the folder:
+grep -nr "DASH AUTHENTICATION" ./player/
+The most important files that I had to change are listed below:
+./player/libdash/libdash/libdash/- The folder with the source for the libdash library.
+./player/libdash/libdash/libdash/source/xml/DOMParser.cpp- The file with the changes to read the modified MPD's hashes and signature.
+./player/libdash/libdash/qtsampleplayer/- The folder with the video player itself.
+./player/libdash/libdash/qtsampleplayer/CMakeLists.txt- The modified CMakeLists.txt that adds Crypto++ and C++11 to the qtsampleplayer compilation.
+./player/libdash/libdash/qtsampleplayer/Managers/MultimediaManager.cpp- The file that the changes to authenticate the MPD are located.
+./player/libdash/libdash/qtsampleplayer/libdashframework/Input/MediaObject.cpp- The file that the changes to authenticate the video segments are located.
+./sampleVideo- A folder including a sample MPD and video segments that can be used for testing.
+
