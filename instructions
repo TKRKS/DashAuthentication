@@ -1,7 +1,7 @@
 Compiling the MPD Parser and other crypto functions:
 1.  Move to the root directory of the project
 2.  sudo apt-get install crypto++
-3.  cd mpdParser
+3.  cd mpdModifier
 4.  make clean
 5.  make
 
@@ -10,7 +10,7 @@ instructions for libdash in general):
 1.  Move to the root directory of the project
 2.  sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
 2a. sudo apt-get install ia32-libs (If using a 64 bit OS)
-3.  cd src/libdash/libdash
+3.  cd player/libdash/libdash/libdash
 4.  rm -rf build
 5.  mkdir build
 6.  cd build
@@ -55,7 +55,7 @@ To run the dash player:
 
 General tips for running and looking through the files:
 1.  If for some reason things aren't compiling, make sure you are have C++ 11 on gcc
-2.  While this shouldn't happen, if for some reason the program crashes, you'll have 
+2.  While this shouldn't happen, if for some reason the program crashes, you may have 
     to delete the copy of the mpd that was downloaded locally, or else it will mess up 
     with downloads in the future.
 3.  If you want to test the authentication there are two easy ways to do this.  First, 
