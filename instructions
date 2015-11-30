@@ -10,7 +10,7 @@ instructions for libdash in general):
 1.  Move to the root directory of the project
 2.  sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
 2a. sudo apt-get install ia32-libs (If using a 64 bit OS)
-3.  cd player/libdash/libdash/libdash
+3.  cd player/libdash/libdash
 4.  rm -rf build
 5.  mkdir build
 6.  cd build
@@ -19,7 +19,7 @@ instructions for libdash in general):
 9.  sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
 10. sudo apt-add-repository ppa:canonical-qt5-edgers/qt5-proper
 11. sudo apt-get update
-12. sudo apt-get install qtmultimedia5-dev qtbase5-dev libqt5widgets5 libqt5core5 libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev crypto++
+12. sudo apt-get install qtmultimedia5-dev qtbase5-dev libqt5widgets5 libqt5core5a libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev crypto++
 13. cd ../qtsampleplayer
 14. rm -rf build
 15. mkdir build
