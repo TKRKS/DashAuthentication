@@ -1,0 +1,77 @@
+Compiling the MPD Parser and other crypto functions:
+1.  Move to the root directory of the project
+2.  sudo apt-get install crypto++
+3.  cd mpdModifier
+4.  make clean
+5.  make
+
+Compiling the DASH Player (note that this is based on the compile 
+instructions for libdash in general):
+1.  Move to the root directory of the project
+2.  sudo apt-get install git-core build-essential cmake libxml2-dev libcurl4-openssl-dev
+2a. sudo apt-get install ia32-libs (If using a 64 bit OS)
+3.  cd player/libdash/libdash
+4.  rm -rf build
+5.  mkdir build
+6.  cd build
+7.  cmake ../
+8.  make
+9.  sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
+10. sudo apt-add-repository ppa:canonical-qt5-edgers/qt5-proper
+11. sudo apt-get update
+12. sudo apt-get install qtmultimedia5-dev qtbase5-dev libqt5widgets5 libqt5core5a libqt5gui5 libqt5multimedia5 libqt5multimediawidgets5 libqt5opengl5 libav-tools libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev crypto++
+13. cd ../qtsampleplayer
+14. rm -rf build
+15. mkdir build
+16. cd build
+17. wget http://www.cmake.org/files/v2.8/cmake-2.8.11.2-Linux-i386.sh
+18. chmod a+x cmake-2.8.11.2-Linux-i386.sh
+19. ./cmake-2.8.11.2-Linux-i386.sh
+20. ./cmake-2.8.11.2-Linux-i386/bin/cmake ../
+21. make
+
+
+
+To generate a key pair:
+1.  Move to the root directory of the project
+2.  cd mpdModifier
+3.  ./generateKey <keyname>
+
+To sign an mpd file:
+1.  Move to the root directory of the project
+2.  cd mpdModifier
+3.  ./mpdParser <path to MPD> <path to base directory for segments> <path to private key>
+
+To run the dash player (assuming a webserver has the MPD as described in general tip 6):
+1.  Move to the root directory of the project
+2.  cd player/libdash/libdash/qtsampleplayer/build
+3.  ./qtsampleplayer <path to public key>
+4.  Click Download MPD
+5.  Click Start
+6.  Look at the terminal for authentication info
+
+
+
+
+General tips for running and looking through the files:
+1.  If for some reason things aren't compiling, make sure you are have C++ 11 on gcc
+2.  While this shouldn't happen, if for some reason the program crashes, you may have 
+    to delete the copy of the mpd that was downloaded locally, or else it will mess up 
+    with downloads in the future.
+3.  If you want to test the authentication there are two easy ways to do this.  First, 
+    if you change part of the signature, you can make sure mpd authentication works.  Since 
+    changing the hashes will make the authentication fail, if you want to test hash 
+    verification, simply copy one of the segments over a different one (for example, if 
+    you have segments test1.m4s and test5.m4s, simply run cp test5.m4s test1.m4s so the 
+    video will run but verification will fail).
+4.  Also note that because there is no buffering, validation happens after the segment 
+    plays (rather than before like I'd like).
+5.  If you wish to look at code, every file I modified in libdash is marked with the comment //DASH AUTHENTICATION.
+    The main two files that were modified are player/libdash/libdash/qtsampleplayer/Managers/MultimediaManager.cpp
+    (for the mpd authentication) and player/libdash/libdash/qtsampleplayer/libdashframework/Input/MediaObject.cpp
+    (for the hash verification)
+6.  If you need an MPD to test this on, you can use the one included in sampleVideo/  It includes the mpd
+    carFull_dash.mpd, authenticatedMpd.mpd and all the segments needed for them.  Simply place them in the car
+    folder of your local webserver for the player to work (as without changing the QT UI, it tries to download
+    http://127.0.0.1/car/authenticatedMpd.mpd).
+    
