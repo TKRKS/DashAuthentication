@@ -42,7 +42,7 @@ To sign an mpd file:
 2.  cd mpdModifier
 3.  ./mpdParser <path to MPD> <path to base directory for segments> <path to private key>
 
-To run the dash player:
+To run the dash player (assuming a webserver has the MPD as described in general tip 6):
 1.  Move to the root directory of the project
 2.  cd player/libdash/libdash/qtsampleplayer/build
 3.  ./qtsampleplayer <path to public key>
@@ -71,4 +71,7 @@ General tips for running and looking through the files:
     (for the mpd authentication) and player/libdash/libdash/qtsampleplayer/libdashframework/Input/MediaObject.cpp
     (for the hash verification)
 6.  If you need an MPD to test this on, you can use the one included in sampleVideo/  It includes the mpd
-    carFull_dash.mpd, authenticatedMpd.mpd and all the segments needed for them.
+    carFull_dash.mpd, authenticatedMpd.mpd and all the segments needed for them.  Simply place them in the car
+    folder of your local webserver for the player to work (as without changing the QT UI, it tries to download
+    http://127.0.0.1/car/authenticatedMpd.mpd).
+    
